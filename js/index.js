@@ -1,39 +1,42 @@
-document.addEventListener('DOMContentLoaded', cargaInicial)
+document.addEventListener('DOMContentLoaded', () => {
 
-function cargaInicial() {
-    let colores = [] //lista de objetos con los colores
+    const url = 'http://localhost:3000/colors'
 
-    //creo objeto color rojo
-    let rojo = {
-        name: 'red',
-        hex: '#ff0000'
-    }
+    axios.get(url)
+        .then(response => {
 
-    //creo objeto color azul
-    let azul = {
-        name: 'blue',
-        hex: '#0000ff'
-    }
+            //console.log(response)
+            colores = response.data
+            let divColores = document.getElementById('colores')
+            let tarjetasColores = '<div class="columns">'
 
-    //creo objeto color verde
-    let verde = {
-        name: 'green',
-        hex: '#00ff00'
-    }
+            for (let i = 0; i < colores.length; i++) {
+                tarjetasColores += `
+                    <div class="column is-one-fifth">
+                        <div class="card">
+                            <header class="card-header">
+                                <p class="card-header-title">
+                                    ${i + 1}. ${colores[i].name}
+                                </p>
+                            </header>
+                            <div class="card-content">
+                                <div class="box" style="background-color:${colores[i].hex}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+                if ((i + 1) % 5 == 0 && i > 0) {
+                    tarjetasColores += `
+                    </div> 
+                    <div class="columns">
+                    `
+                }
+            }
+            tarjetasColores += '</div>'
+            console.log(tarjetasColores)
 
-    //agrego los objetos color a la lista de colores
-    colores.push(rojo)
-    colores.push(verde)
-    colores.push(azul)
+            divColores.innerHTML = tarjetasColores
 
-    let divColores = document.getElementById('colores')
-    let tarjetasColores = ''
-
-    for (let i = 0; i < colores.length; i++) {
-        tarjetasColores += `<p>${colores[i].name}</p>`
-    }
-
-    console.log(tarjetasColores)
-
-    divColores.innerHTML = tarjetasColores
-}
+        })
+})
