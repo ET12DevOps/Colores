@@ -1,11 +1,11 @@
-//definir evento con funcion declarada
+//definir evento 'DOMContentLoaded' con funcion declarada
 // document.addEventListener('DOMContentLoaded', cargaInicial)
 
 // function cargaInicial() {
 
 // }
 
-//definir evento con funcion anonima
+//definir evento 'DOMContentLoaded' con funcion anonima
 document.addEventListener('DOMContentLoaded', () => {
 
     let juan = {
